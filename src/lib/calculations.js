@@ -9,6 +9,7 @@ import {
   getNeighborhood, RENT_BR_MULT, HOME_BR_MULT, STANDARD_BATHS, BATH_PREMIUM_PER_EXTRA,
 } from '../data/neighborhoods.js';
 import { UTILITY_ITEMS, computeUtilityDefault } from '../data/utilities.js';
+import { computeVehicleCost } from '../data/vehicles.js';
 
 /**
  * Apply progressive tax brackets to taxable income.
@@ -86,8 +87,9 @@ export function runCalculation(state) {
     baseSalary, bonus, rsuAnnual, retirement401kPct, filingStatus,
     adults, children, childrenInDaycare, daycareCostPerChild,
     neighborhoodId, housingType, bedrooms, bathrooms, downPct, mortgageRate, customRent,
-    healthPremium, transportPerAdult, miscPerPerson, groceriesPerAdult, groceriesPerChild,
+    healthPremium, miscPerPerson, groceriesPerAdult, groceriesPerChild,
     usageMultiplier, utilityOverrides,
+    vehicles,
   } = state;
 
   // ─── Taxes ────────────────────────────────────────────────
@@ -133,7 +135,8 @@ export function runCalculation(state) {
     : n.childcare;
   const childcare = childcareRate * childrenInDaycare;
   const groceries = (adults * groceriesPerAdult + children * groceriesPerChild) * n.groceryMult;
-  const transportation = transportPerAdult * adults;
+  const vehicleList = vehicles || [];
+  const transportation = vehicleList.reduce((sum, v) => sum + computeVehicleCost(v).total, 0);
   const health = healthPremium;
   const misc = miscPerPerson * (adults + children);
 

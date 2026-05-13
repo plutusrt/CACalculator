@@ -5,6 +5,7 @@ import CompCard from './components/CompCard.jsx';
 import HouseholdCard from './components/HouseholdCard.jsx';
 import LocationCard from './components/LocationCard.jsx';
 import UtilitiesCard from './components/UtilitiesCard.jsx';
+import VehiclesCard from './components/VehiclesCard.jsx';
 import Results from './components/Results.jsx';
 
 const DEFAULT_STATE = {
@@ -37,8 +38,13 @@ const DEFAULT_STATE = {
   usageMultiplier: 1.0,
   utilityOverrides: {},
 
+  // Vehicles (replaces flat transportation)
+  vehicles: [
+    { type: 'midsize', ownership: 'finance' },
+    { type: 'suv', ownership: 'lease' },
+  ],
+
   // Other expenses
-  transportPerAdult: 700,
   miscPerPerson: 250,
 };
 
@@ -108,6 +114,7 @@ export default function App() {
             <HouseholdCard state={state} set={set} calc={calc} />
             <LocationCard state={state} set={set} calc={calc} />
             <UtilitiesCard state={state} set={set} calc={calc} />
+            <VehiclesCard state={state} set={set} />
           </div>
         </div>
 

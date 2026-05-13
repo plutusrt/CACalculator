@@ -301,3 +301,35 @@ input[type='range'] {
 /* ─── Hint text ──────────────────────────────────────────────── */
 .hint { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
 .hint-warn { color: var(--accent); }
+
+/* ─── Vehicle blocks ─────────────────────────────────────────── */
+.vehicle-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 14px 12px;
+  display: grid;
+  gap: 12px;
+}
+.vehicle-block-title {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.vehicle-field { display: grid; gap: 4px; }
+.vehicle-summary {
+  display: grid; gap: 4px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.vehicle-summary-row {
+  display: flex; justify-content: space-between;
+}
+.vehicle-summary-row.total {
+  color: var(--text); font-weight: 600;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  padding-top: 6px;
+}

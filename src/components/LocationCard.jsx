@@ -115,12 +115,6 @@ export default function LocationCard({ state, set, calc }) {
         )}
 
         <DollarField
-          label="Transportation per adult / month"
-          value={state.transportPerAdult}
-          onChange={(v) => set({ transportPerAdult: v })}
-          step={25}
-        />
-        <DollarField
           label="Discretionary per person / month"
           value={state.miscPerPerson}
           onChange={(v) => set({ miscPerPerson: v })}

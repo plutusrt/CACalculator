@@ -1,6 +1,17 @@
 // Reusable input building blocks shared across input cards.
+import { useState, useEffect } from 'react';
 
 export function DollarField({ label, value, onChange, step = 1000, min = 0 }) {
+  // Local string state lets an empty field stay empty instead of snapping to 0
+  const [text, setText] = useState(value === 0 ? '' : String(value));
+
+  // Sync if the parent value changes externally (e.g. hydrated from storage)
+  useEffect(() => {
+    const current = text === '' ? 0 : Number(text);
+    if (current !== value) setText(value === 0 ? '' : String(value));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
   return (
     <div>
       <label className="field-label">{label}</label>
@@ -9,10 +20,15 @@ export function DollarField({ label, value, onChange, step = 1000, min = 0 }) {
         <input
           type="number"
           className="input with-prefix"
-          value={value}
+          value={text}
           step={step}
           min={min}
-          onChange={(e) => onChange(Math.max(min, +e.target.value || 0))}
+          placeholder="0"
+          onChange={(e) => {
+            const v = e.target.value;
+            setText(v);
+            onChange(v === '' ? min : Math.max(min, Number(v) || 0));
+          }}
         />
       </div>
     </div>
